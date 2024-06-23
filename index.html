@@ -171,15 +171,15 @@
         this.currentIndex = 0
       }
       next() {
-        if(this.currentIndex >= this.str.length){
+        if (this.currentIndex >= this.str.length) {
           return null
-        } else{
+        } else {
           let endingIndex = this.currentIndex + this.number
           let page = this.str.slice(this.currentIndex, endingIndex)
-          this.currentIndex = endingIndex 
+          this.currentIndex = endingIndex
           return page
         }
-        
+
       }
     }
 
@@ -216,11 +216,21 @@
       // 👉 HINT: if you are not feeling confident with map and filter, solve the problem with for loops,
       //      and with the piece of mind of all tests passing, refactor to use map/filter
 
-      constructor(...args) {
-        this.ints = args
+      constructor(...ants) {
+        this.ants = ants.map(name => ({ name, health: 100 }))
       }
       work() {
-        return this.ints
+        let antsStarting = `${this.ants.length} ants starting work!`
+        if (this.ants.length < 1) {
+          return "No ants here. Did you work them to death?"
+        }
+        this.ants.forEach(ant =>{
+          ant.health -= 20
+        }) 
+
+        this.ants = this.ants.filter(ant => ant.health > 0)
+
+        return antsStarting
       }
       feed() {
         return this.ints

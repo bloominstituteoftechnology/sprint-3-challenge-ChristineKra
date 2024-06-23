@@ -18,7 +18,6 @@
     .widget p {
       font-style: italic;
     }
-
   </style>
 </head>
 
@@ -59,59 +58,37 @@
       // ❗ WARNING: except for `getAllReversed`, methods must respect the order of the integers
       // ❗ WARNING: note that except for push and pop, the methods don't change the `ints` property
 
-      constructor(...args){
+      constructor(...args) {
         this.ints = args
       }
       getAll() {
         return this.ints
       }
       getEvens() {
-        const evens = this.ints.filter(int => int % 2===0)
+        const evens = this.ints.filter(int => int % 2 === 0)
         return evens
       }
       getNegatives() {
-        const negavtives = this.ints.filter(int => int <0)
+        const negavtives = this.ints.filter(int => int < 0)
         return negavtives
       }
       getAllSquared() {
-        const squared = this.ints.map(int => int **2)
+        const squared = this.ints.map(int => int ** 2)
         return squared
       }
       pop() {
+        return this.ints.pop()
+      }
+      push(num) {
+        this.ints.push(num)
         return this.ints
       }
-      push() {
-        return this.ints
+      getEveryNth(n) {
+        return this.ints.filter((element, index) => index % n === 0)
       }
-      getEveryNth() {
-        return this.ints
+      getAllReversed() {
+        return this.ints.reverse()
       }
-      getAll() {
-        return this.ints
-      }
-
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     // 👉 CHALLENGE 2 NerfGun
@@ -129,8 +106,48 @@
       //      * When engaging the safety, return "Safety enabled!"
       //      * When disengaging the safety, return "Safety disabled!"
       // 🌟 HINT: instances need to keep track of their maximum capacity as well as their current capacity
+      constructor(num) {
+        this.totalProjectiles = num
+        this.currentProjectiles = num
+        this.safetyOn = true
+      }
 
+      shoot() {
+        if (this.safetyOn) {
+          return 'Click!'
+        }
+        if (this.currentProjectiles > 0) {
+          this.currentProjectiles--
+          return 'Bang!'
+        } else {
+          return 'Click!'
+        }
+      }
+
+      reload(number) {
+        if (typeof number !== 'number' || number <= 0) {
+          return 'Error reloading!'
+        }
+
+        if (number > this.totalProjectiles) {
+          this.currentProjectiles = this.totalProjectiles
+          return `${this.currentProjectiles} projectiles left!`
+        }
+
+        this.currentProjectiles += number
+        return `${this.currentProjectiles} projectiles left!`
+      }
+
+      toggleSafety() {
+        this.safetyOn = !this.safetyOn
+        if (this.safetyOn) {
+          return 'Safety enabled!'
+        } else {
+          return 'Safety disabled!'
+        }
+      }
     }
+    let newInst = new NerfGun()
 
     // 👉 CHALLENGE 3 EBook
     class EBook {
@@ -148,7 +165,22 @@
       //    ebook.next() // returns null
       // 🌟 HINT: remember about the `slice` method which strings and arrays have
       // ❗ Feel free to implement `back`, although this is not required nor graded
-
+      constructor(string, number) {
+        this.str = string
+        this.number = number
+        this.currentIndex = 0
+      }
+      next() {
+        if(this.currentIndex >= this.str.length){
+          return null
+        } else{
+          let endingIndex = this.currentIndex + this.number
+          let page = this.str.slice(this.currentIndex, endingIndex)
+          this.currentIndex = endingIndex 
+          return page
+        }
+        
+      }
     }
 
     // 👉 CHALLENGE 4 AntFarm
@@ -184,6 +216,15 @@
       // 👉 HINT: if you are not feeling confident with map and filter, solve the problem with for loops,
       //      and with the piece of mind of all tests passing, refactor to use map/filter
 
+      constructor(...args) {
+        this.ints = args
+      }
+      work() {
+        return this.ints
+      }
+      feed() {
+        return this.ints
+      }
     }
 
     // 🧪 TESTS, do not make any changes below this line ===================
